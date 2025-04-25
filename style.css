@@ -17,8 +17,10 @@ body {
 
 .container {
   flex-direction: column;
-  border: 2px solid white;
+  border: 2px solid #fff;
   padding: 25px;
+  width: 40%;
+  min-width: 500px;
 }
 
 .add-task-container {
@@ -26,13 +28,20 @@ body {
   padding: 15px;
   margin-bottom: 50px;
   background-color: white;
-  border-radius: 3px;
-  gap: 10px;
+  border-radius: 5px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .add-task-container input {
   padding: 8px;
   width: 18rem;
+  border-radius: 5px;
+  border: 2px solid #d1d3d4;
+}
+
+.add-task-container input:focus {
+  outline: none;
+  border-color: #41b884;
 }
 
 .add-task-container button {
@@ -41,24 +50,15 @@ body {
   color: white;
   border-radius: 5px;
   border: none;
+  margin-left: 15px;
 }
 
-.show-task {
+.show-task-container {
   display: flex;
   padding: 25px;
   background-color: white;
   justify-content: space-between;
   align-items: center;
-}
-
-.show-task p {
-  font-size: 15px;
-}
-
-.show-task button {
-  padding: 7px;
-  background-color: var(--main-button-color);
-  color: white;
-  border: none;
   border-radius: 5px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
