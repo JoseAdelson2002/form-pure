@@ -25,6 +25,7 @@ body {
 
 .add-task-container {
   display: flex;
+  flex-direction: column;
   padding: 15px;
   margin-bottom: 50px;
   background-color: white;
@@ -32,25 +33,41 @@ body {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-.add-task-container input {
+.input-button-wrapper {
+  display: flex;
+}
+
+.input-button-wrapper input {
   padding: 8px;
   width: 18rem;
   border-radius: 5px;
   border: 2px solid #d1d3d4;
 }
 
-.add-task-container input:focus {
+.input-button-wrapper input:focus {
   outline: none;
   border-color: #41b884;
 }
 
-.add-task-container button {
+.input-button-wrapper button {
   padding: 10px 25px;
   background-color: var(--main-button-color);
   color: white;
   border-radius: 5px;
   border: none;
   margin-left: 15px;
+  cursor: pointer;
+}
+
+.input-button-wrapper button:hover {
+  opacity: 0.7;
+}
+
+.message-error-container p {
+  background-color: red;
+  padding: 5px 10px;
+  margin-top: 10px;
+  color: #fff;
 }
 
 .show-task-container {
@@ -61,4 +78,17 @@ body {
   align-items: center;
   border-radius: 5px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.show-task-container p {
+}
+
+.show-task-container button {
+  padding: 5px 10px;
+  background-color: var(--main-button-color);
+  color: white;
+  border-radius: 5px;
+  border: none;
+  margin-left: 15px;
+  cursor: pointer;
 }
