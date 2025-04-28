@@ -15,6 +15,7 @@ const addTask = (e) => {
     task.textContent = taskTextValue;
 
     taskContainer.appendChild(task);
+    addTaskText.value = "";
 
     const deleteButton = document.createElement("button");
     const deleteIcon = document.createElement("i");
@@ -27,12 +28,11 @@ const addTask = (e) => {
 
 const IsValidTask = (taskText) => {
   if (taskText.length <= 0) {
-    const messageError = document.createElement("p");
-    messageError.innerText = "Digite uma tarefa!";
-    messageErrorContainer.appendChild(messageError);
+    messageErrorContainer.style.display = "block";
     return false;
   }
 
+  messageErrorContainer.style.display = "none";
   return true;
 };
 
