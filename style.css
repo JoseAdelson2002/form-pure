@@ -88,11 +88,17 @@ body {
 .show-task {
   display: flex;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 6px;
+  margin-top: 6px;
   justify-content: space-between;
+  align-items: center;
 }
 
 .show-task p {
+}
+
+.text-line-through {
+  text-decoration: line-through;
 }
 
 .show-task button {

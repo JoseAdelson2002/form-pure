@@ -14,7 +14,7 @@ const addTask = (e) => {
     const taskWrapper = document.createElement("div");
     taskWrapper.classList.add("show-task");
     const task = document.createElement("p");
-    task.textContent = taskTextValue;
+    task.innerText = taskTextValue;
 
     taskWrapper.appendChild(task);
     addTaskText.value = "";
@@ -29,8 +29,12 @@ const addTask = (e) => {
   }
 };
 
+const completeTask = (task) => {
+  task.classList.add("text-line-through");
+};
+
 const IsValidTask = (taskText) => {
-  if (taskText.length <= 0) {
+  if (taskText.trim().length <= 0) {
     messageErrorContainer.style.display = "block";
     return false;
   }
