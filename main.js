@@ -8,17 +8,93 @@ const messageErrorContainer = document.querySelector(
 const addTask = (e) => {
   e.preventDefault();
 
-  const taskTextValue = addTaskText.value;
+  const inputIsValid = IsValidTask();
 
-  if (IsValidTask(taskTextValue)) {
+  if (!inputIsValid) {
+    return (messageErrorContainer.style.display = "block");
+  }
+
+  messageErrorContainer.style.display = "none";
+
+  const taskWrapper = document.createElement("div");
+  taskWrapper.classList.add("show-task");
+  const taskContent = document.createElement("p");
+  taskContent.innerText = addTaskText.value;
+
+  taskContent.addEventListener("click", () => handleClick(taskContent));
+
+  taskWrapper.appendChild(taskContent);
+  addTaskText.value = "";
+
+  const deleteButton = document.createElement("button");
+  const deleteIcon = document.createElement("i");
+  deleteIcon.className = "fa-solid fa-trash";
+
+  deleteButton.addEventListener("click", () => handleDelete(taskWrapper));
+
+  deleteButton.appendChild(deleteIcon);
+  taskWrapper.appendChild(deleteButton);
+  taskContainer.appendChild(taskWrapper);
+
+  updateLocalStorage();
+};
+
+const handleClick = (taskContent) => {
+  const tasks = taskContainer.childNodes;
+
+  for (const task of tasks) {
+    const currentTaskIsBeingClicked = task.firstChild.isSameNode(taskContent);
+    if (currentTaskIsBeingClicked) {
+      task.firstChild.classList.toggle("completed");
+    }
+  }
+
+  updateLocalStorage();
+};
+
+const handleDelete = (taskWrapper) => {
+  const tasks = taskContainer.childNodes;
+
+  for (const task of tasks) {
+    if (task.isSameNode(taskWrapper)) {
+      task.remove();
+    }
+  }
+  updateLocalStorage();
+};
+
+const IsValidTask = () => {
+  return addTaskText.value.trim().length > 0;
+};
+
+const updateLocalStorage = () => {
+  const tasks = taskContainer.childNodes;
+
+  const localStorageTasks = [...tasks].map((task) => {
+    const content = task.firstChild;
+    let isCompleted = content.classList.contains("completed");
+
+    return { description: content.innerText, isCompleted: isCompleted };
+  });
+  localStorage.setItem("tasks", JSON.stringify(localStorageTasks));
+};
+
+const refreshTasksUsingLocalStorage = () => {
+  const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
+
+  for (const task of tasksFromLocalStorage) {
     const taskWrapper = document.createElement("div");
     taskWrapper.classList.add("show-task");
-    const task = document.createElement("p");
-    task.innerText = taskTextValue;
+    const taskContent = document.createElement("p");
+    taskContent.innerText = task.description;
 
-    task.addEventListener("click", () => handleClick(task));
+    if (task.isCompleted) {
+      taskContent.classList.add("completed");
+    }
 
-    taskWrapper.appendChild(task);
+    taskContent.addEventListener("click", () => handleClick(taskContent));
+
+    taskWrapper.appendChild(taskContent);
     addTaskText.value = "";
 
     const deleteButton = document.createElement("button");
@@ -33,35 +109,5 @@ const addTask = (e) => {
   }
 };
 
-const handleClick = (taskContent) => {
-  const tasks = taskContainer.childNodes;
-
-  for (const task of tasks) {
-    const currentTaskIsBeingClicked = task.firstChild.isSameNode(taskContent);
-    if (currentTaskIsBeingClicked) {
-      task.firstChild.classList.toggle("completed");
-    }
-  }
-};
-
-const handleDelete = (taskWrapper) => {
-  const tasks = taskContainer.childNodes;
-
-  for (const task of tasks) {
-    if (task.isSameNode(taskWrapper)) {
-      task.remove();
-    }
-  }
-};
-
-const IsValidTask = (taskText) => {
-  if (taskText.trim().length <= 0) {
-    messageErrorContainer.style.display = "block";
-    return false;
-  }
-
-  messageErrorContainer.style.display = "none";
-  return true;
-};
-
+refreshTasksUsingLocalStorage();
 addTaskButton.addEventListener("click", addTask);
