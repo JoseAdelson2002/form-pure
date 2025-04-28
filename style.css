@@ -95,9 +95,10 @@ body {
 }
 
 .show-task p {
+  cursor: pointer;
 }
 
-.text-line-through {
+.completed {
   text-decoration: line-through;
 }
 

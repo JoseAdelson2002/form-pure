@@ -16,6 +16,8 @@ const addTask = (e) => {
     const task = document.createElement("p");
     task.innerText = taskTextValue;
 
+    task.addEventListener("click", () => handleClick(task));
+
     taskWrapper.appendChild(task);
     addTaskText.value = "";
 
@@ -23,14 +25,33 @@ const addTask = (e) => {
     const deleteIcon = document.createElement("i");
     deleteIcon.className = "fa-solid fa-trash";
 
+    deleteButton.addEventListener("click", () => handleDelete(taskWrapper));
+
     deleteButton.appendChild(deleteIcon);
     taskWrapper.appendChild(deleteButton);
     taskContainer.appendChild(taskWrapper);
   }
 };
 
-const completeTask = (task) => {
-  task.classList.add("text-line-through");
+const handleClick = (taskContent) => {
+  const tasks = taskContainer.childNodes;
+
+  for (const task of tasks) {
+    const currentTaskIsBeingClicked = task.firstChild.isSameNode(taskContent);
+    if (currentTaskIsBeingClicked) {
+      task.firstChild.classList.toggle("completed");
+    }
+  }
+};
+
+const handleDelete = (taskWrapper) => {
+  const tasks = taskContainer.childNodes;
+
+  for (const task of tasks) {
+    if (task.isSameNode(taskWrapper)) {
+      task.remove();
+    }
+  }
 };
 
 const IsValidTask = (taskText) => {
