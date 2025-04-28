@@ -11,10 +11,12 @@ const addTask = (e) => {
   const taskTextValue = addTaskText.value;
 
   if (IsValidTask(taskTextValue)) {
+    const taskWrapper = document.createElement("div");
+    taskWrapper.classList.add("show-task");
     const task = document.createElement("p");
     task.textContent = taskTextValue;
 
-    taskContainer.appendChild(task);
+    taskWrapper.appendChild(task);
     addTaskText.value = "";
 
     const deleteButton = document.createElement("button");
@@ -22,7 +24,8 @@ const addTask = (e) => {
     deleteIcon.className = "fa-solid fa-trash";
 
     deleteButton.appendChild(deleteIcon);
-    taskContainer.appendChild(deleteButton);
+    taskWrapper.appendChild(deleteButton);
+    taskContainer.appendChild(taskWrapper);
   }
 };
 
